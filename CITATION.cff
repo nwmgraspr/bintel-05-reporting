@@ -1,0 +1,60 @@
+# ============================================================
+# CITATION.cff (How to cite this project)
+# ============================================================
+
+# REQ.UNIVERSAL: Professional open projects SHOULD include this file.
+# WHY: Support correct citation and attribution.
+# ALT: Internal or private repositories may omit citation metadata.
+# CUSTOM: Update author, repository, license, and keyword fields as needed.
+# USAGE: See https://citation-file-format.github.io/ for details.
+
+cff-version: "1.2.0"
+type: software
+
+title: "bintel-05-reporting"
+version: "0.1.0"
+date-released: "2026-07-23"
+
+authors:
+  - family-names: Case
+    given-names: Denise M.
+    orcid: "https://orcid.org/0000-0001-6165-7389"
+    affiliation: "Northwest Missouri State University, School of Computer Science and Information Systems, Maryville, MO, USA"
+
+repository-code: "https://github.com/denisecase/bintel-05-reporting"
+url: "https://github.com/denisecase/bintel-05-reporting"
+license: MIT
+
+abstract: >
+  Business intelligence project.
+  Learn to query a smart sales data warehouse using OLAP operations
+  including slice, dice, and drilldown
+  to generate business intelligence reports and visualizations.
+
+keywords:
+  - business-intelligence
+  - olap
+  - reporting
+  - slice-dice-drilldown
+  - data-warehouse
+  - sqlite
+  - smart-sales
+  - professional-python
+  - reproducible-workflows
+  - ci-cd
+  - github-actions
+  - software-quality
+  - professional-practice
+  - python
+  - pandas
+  - sql
+  - matplotlib
+  - seaborn
+  - git
+  - github
+  - open-source
+  - uv
+  - ruff
+  - zensical
+
+message: "If using this work, please cite it as described in this file."
