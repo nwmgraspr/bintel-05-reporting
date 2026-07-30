@@ -20,9 +20,10 @@ authors:
     given-names: Denise M.
     orcid: "https://orcid.org/0000-0001-6165-7389"
     affiliation: "Northwest Missouri State University, School of Computer Science and Information Systems, Maryville, MO, USA"
-
-repository-code: "https://github.com/denisecase/bintel-05-reporting"
-url: "https://github.com/denisecase/bintel-05-reporting"
+  - family-names: Massaquoi
+    given-names: Ralph
+repository-code: "https://github.com/nwmgraspr/bintel-05-reporting"
+url: "https://github.com/nwmgraspr/bintel-05-reporting"
 license: MIT
 
 abstract: >
