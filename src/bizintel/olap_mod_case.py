@@ -215,6 +215,81 @@ def export_reporting_dataset(
 
     return df_reporting
 
+
+# === Section 2.4 DEFINE A SLICE FUNCTION ===
+
+# Slice: select one value from one dimension.
+#
+# We select one Region value.
+# After fixing the Region dimension, we compare sales by Category.
+#
+# Use a slice when an analyst wants to focus on one business segment,
+# such as one region, one year, one store, or one product category.
+
+
+def slice_sales_by_region(
+    conn: duckdb.DuckDBPyConnection,
+    selected_region: str,
+) -> pd.DataFrame:
+    """Slice sales by one selected region.
+
+    WHY: A slice fixes one dimension at one selected value.
+    Here, the Region dimension is fixed to one region.
+    We then compare product-category sales inside that region.
+
+    Args:
+        conn: Open DuckDB connection.
+        selected_region: Region value to include in the slice.
+
+    Returns:
+        DataFrame with Region, Category, and TotalSales columns.
+
+    Raises:
+        ValueError: If the selected region has no matching rows.
+    """
+    LOG.info(f"OLAP slice: sales for Region = {selected_region!r}")
+
+    # The WHERE clause performs the slice.
+    # It keeps rows for one selected member of the Region dimension.
+    #
+    # After slicing, GROUP BY summarizes sales by product category
+    # within the selected region.
+    sql = """
+        SELECT
+            Region,
+            Category,
+            ROUND(SUM(SaleAmount), 2) AS TotalSales
+        FROM sales_reporting
+        WHERE Region = ?
+        GROUP BY Region, Category
+        ORDER BY TotalSales DESC
+    """
+
+    # The question-mark placeholder is filled with selected_region.
+    # Parameterized queries are safer than constructing SQL with f-strings.
+    df_slice: pd.DataFrame = conn.execute(sql, [selected_region]).df()
+
+    if df_slice.empty:
+        raise ValueError(
+            f"No sales were found for region {selected_region!r}. "
+            "Update SLICE_REGION to a region present in the data."
+        )
+
+    LOG.info(f"  Categories in the slice: {df_slice.shape[0]}")
+    return df_slice
+
+
+# === Section 2.5 DEFINE A DICE FUNCTION ===
+
+# Dice: select values from two or more dimensions.
+#
+# We select multiple Region values and multiple Category values.
+# The resulting subset is smaller than the complete reporting dataset.
+#
+# Use a dice when an analyst wants to compare a targeted combination,
+# such as two regions, selected categories, and a limited time period.
+
+
 def dice_sales_by_dimensions(
     conn: duckdb.DuckDBPyConnection,
     selected_regions: tuple[str, ...],
@@ -238,29 +313,25 @@ def dice_sales_by_dimensions(
         ValueError: If the selected dice has no matching rows.
     """
     LOG.info(
-        f"OLAP dice: Regions = {selected_regions}; "
-        f"Categories = {selected_categories}"
+        f"OLAP dice: Regions = {selected_regions}; Categories = {selected_categories}"
     )
 
-    # Build SQL placeholders dynamically so any number of
-    # regions and categories can be selected.
-    region_placeholders = ",".join(["?"] * len(selected_regions))
-    category_placeholders = ",".join(["?"] * len(selected_categories))
-
-    sql = f"""
+    # Each IN condition selects multiple members from one dimension.
+    # Combining both conditions creates a multidimensional subset.
+    sql = """
         SELECT
             Region,
             Category,
             ROUND(SUM(SaleAmount), 2) AS TotalSales
         FROM sales_reporting
-        WHERE Region IN ({region_placeholders})
-          AND Category IN ({category_placeholders})
+        WHERE Region IN (?, ?)
+          AND Category IN (?, ?)
         GROUP BY Region, Category
         ORDER BY TotalSales DESC
     """
 
-    # Parameters must match the order of the placeholders.
-    parameters = [
+    # The parameter order must match the question-mark placeholders.
+    parameters: list[str] = [
         *selected_regions,
         *selected_categories,
     ]
@@ -276,6 +347,7 @@ def dice_sales_by_dimensions(
 
     LOG.info(f"  Region-category combinations: {df_dice.shape[0]}")
     return df_dice
+
 
 # === Section 2.6 DEFINE A ROLL-UP FUNCTION ===
 
@@ -568,6 +640,57 @@ def summarize(
     LOG.info("========================")
 
 
+def analyze_sales_by_store(
+    conn: duckdb.DuckDBPyConnection,
+) -> pd.DataFrame:
+    """Analyze total sales by store."""
+
+    sql = """
+        SELECT
+            StoreID,
+            ROUND(SUM(SaleAmount), 2) AS TotalSales
+        FROM sales_reporting
+        GROUP BY StoreID
+        ORDER BY TotalSales DESC
+    """
+
+    return conn.execute(sql).df()
+
+
+def analyze_monthly_growth(
+    conn: duckdb.DuckDBPyConnection,
+) -> pd.DataFrame:
+    """Analyze month-to-month sales growth."""
+
+    sql = """
+        WITH monthly_sales AS (
+            SELECT
+                YearMonth,
+                SUM(SaleAmount) AS TotalSales
+            FROM sales_reporting
+            GROUP BY YearMonth
+        )
+
+        SELECT
+            YearMonth,
+            ROUND(TotalSales, 2) AS TotalSales,
+            ROUND(
+                (
+                    TotalSales -
+                    LAG(TotalSales) OVER (ORDER BY YearMonth)
+                )
+                /
+                LAG(TotalSales) OVER (ORDER BY YearMonth)
+                * 100,
+                2
+            ) AS GrowthPercent
+        FROM monthly_sales
+        ORDER BY YearMonth
+    """
+
+    return conn.execute(sql).df()
+
+
 # === MAIN FUNCTION ===
 
 
@@ -698,6 +821,45 @@ def main() -> None:
             df_drilldown,
             SLICE_REGION,
             selected_year,
+        )
+        df_store = analyze_sales_by_store(conn)
+
+        plot_bar(
+            df=df_store,
+            x="StoreID",
+            y="TotalSales",
+            title="Sales by Store",
+            xlabel="Store",
+            ylabel="Total Sales ($)",
+        )
+
+        df_growth = analyze_monthly_growth(conn)
+
+        plot_line(
+            df=df_growth.dropna(),
+            x="YearMonth",
+            y="GrowthPercent",
+            title="Monthly Sales Growth",
+            xlabel="Month",
+            ylabel="Growth (%)",
+        )
+        LOG.info("========================")
+        LOG.info("ADDITIONAL ANALYSIS")
+        LOG.info("========================")
+
+        LOG.info(
+            f"Best Store: {df_store.iloc[0]['StoreID']} "
+            f"(${df_store.iloc[0]['TotalSales']:,.2f})"
+        )
+
+        best_growth = (
+            df_growth.dropna().sort_values("GrowthPercent", ascending=False).iloc[0]
+        )
+
+        LOG.info(
+            f"Highest Monthly Growth: "
+            f"{best_growth['YearMonth']} "
+            f"({best_growth['GrowthPercent']}%)"
         )
 
         LOG.info("CALL a function to show charts........")
