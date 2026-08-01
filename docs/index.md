@@ -21,19 +21,17 @@ to get the example projects running on your machine.
 
 ## Phase 4. Technical Modification
 
-Describe your small technical modification to the example project.
+- I modified the OLAP reporting project by adding two new analysis functions: analyze_sales_by_store() and analyze_monthly_growth() The first function calculates total sales by store and creates a store performance chart. The second uses a SQL LAG() window function to calculate month-to-month sales growth and displays the trend in a chart.
+- I chose these changes because the original project analyzed sales by region, category, and time, but did not show store performance or growth trends. These additions provide more useful business insights.
+- I verified the changes by running:
+...Uv run python –m bizintel.olap_mod_case
 
-Include:
+- The project completed successfully and generated the new charts. The results showed the best-performing store was Store 404 with $1,039,243.81 in sales, and the highest monthly growth was March 2025 with 40.01% growth.
 
-- What you changed
-- Why you chose that change
-- How you verified that it worked
-- What result, output, chart, metric, or behavior confirmed the change
+- Compared with the original project, my version adds store-level analysis and growth measurement, making the reporting more valuable for business decisions.
 
-Compared with the example project,
-explain what is different and why the change matters.
 
-Was it easy, or surprisingly challenging and why do you think so?
+- I would consider this project as moderate. This is an existing project that has most of the heavy lifting done. However, integrating the new functions into the existing project required careful attention especially the function placement, indentations and order of execution.
 
 ## Phase 5. Custom Project
 
