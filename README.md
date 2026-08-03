@@ -87,8 +87,7 @@ A new file `project.log` will appear in the root project folder.
 
 ## Command Reference
 
-<details>
-<summary>Show command reference</summary>
+...Uv run python –m bizintel.olap_mod_case
 
 ### In a machine terminal (open in your `Repos` folder)
 
@@ -221,6 +220,13 @@ Replace these placeholders with screenshots from your own project run:
 NOTE: These are old visuals.
 Run the example to generate the correct ones.
 Save your images to docs/images/ and update the links below.
+
+![RExcuted_output](./docs/images/Figure_output.png)
+![RExcuted_output](./docs/images/Chart_1.png)
+![RExcuted_output](./docs/images/Chart_2.png)
+![RExcuted_output](./docs/images/Chart_3.png)
+![RExcuted_output](./docs/images/Chart_4.png)
+
 
 ![DuckDB OLAP Reporting Results](./docs/images/Figure_1.png)
 
