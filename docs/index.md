@@ -68,7 +68,7 @@ Describe the slice, dice, rollup, and drilldown operations you implemented.
 Analyzed sales by one Location (Downtown) to identify the best-performing menu categories within a specific restaurant area.
 - Dice:
 Compared Location and Menu Category dimensions to find which location-category combinations generated the most sales.
-- Roll-Up: 
+- Roll-Up:
 Summarized sales from Month - Quarter - Year - All Years to provide higher-level revenue trends and totals.
 - Drilldown:
 Expanded analysis from Year - Quarter - Month to reveal detailed sales patterns and identify strong sales periods.
