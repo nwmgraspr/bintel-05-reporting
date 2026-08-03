@@ -31,57 +31,142 @@ to get the example projects running on your machine.
 - Compared with the original project, my version adds store-level analysis and growth measurement, making the reporting more valuable for business decisions.
 
 
-- I would consider this project as moderate. This is an existing project that has most of the heavy lifting done. However, integrating the new functions into the existing project required careful attention especially the function placement, indentations and order of execution.
+- I would consider this project as moderate. This is an existing project that has most of the heavy lifting done. However, integrating the new functions into the existing project required careful attention, especially the function placement, indentations and order of execution.
 
 ## Phase 5. Custom Project
 
-Describe your custom OLAP reporting work.
+This project created a custom restaurant OLAP reporting system using DuckDB and Python. It
+used OLAP techniques such as slice, dice, roll-up, and drill-down to analyze restaurant sales by
+location, menu category, and time. The project also generated reports, charts, and summaries to
+help identify sales trends and support business decision-making.
 
 ### Basis and Data
+The project used a DuckDB data warehouse stored in artifacts/smart_sales.duckdb. The
+warehouse contained restaurant sales data used to create a custom reporting dataset for OLAP
+analysis.
+The main data included:
+- Restaurant Orders: Contains transaction details such as order ID, order date, restaurant ID, and
+sales amount.
+- Restaurant Reporting View: A business-ready dataset combining sales information with location
+and menu category details for analysis.
 
+### The business questions investigated were:
+
+- Which restaurant locations generate the most sales?
+- Which menu categories contribute the most revenue?
+- How do sales patterns change over time?
+- Which locations and categories perform best together?
+These questions matter because businesses need accurate sales insights to improve decision-
+making. Understanding location performance, product demand, and sales trends can support
+better choices in menu planning, inventory control, staffing, and revenue strategies.
 Describe the data warehouse you queried.
-
-Include:
-
-- The warehouse tables and what each contains
-- The business questions you chose to investigate
-- Why those questions matter to a business
 
 ### OLAP Operations
 
 Describe the slice, dice, rollup, and drilldown operations you implemented.
+- Slice:
+Analyzed sales by one Location (Downtown) to identify the best-performing menu categories within a specific restaurant area.
+- Dice:
+Compared Location and Menu Category dimensions to find which location-category combinations generated the most sales.
+- Roll-Up: 
+Summarized sales from Month - Quarter - Year - All Years to provide higher-level revenue trends and totals.
+- Drilldown:
+Expanded analysis from Year - Quarter - Month to reveal detailed sales patterns and identify strong sales periods.
 
+- Operating System: Windows 10
+- Reporting Tool:
+Custom Python reporting using DuckDB, Pandas, and visualization libraries.
+- Custom Reporting:
+Added restaurant-specific queries, reporting exports, charts, and automated summaries to identify sales trends and business insights.
 Include:
-
-1. Slice. What dimension you chose for your **slice** and why
-2. Dice. What two dimensions you chose for your **dice** and why
-3. Drilldown. What level of **drilldown** you implemented and what it revealed
-4. Rollup. What level of **rollup** you implemented and what higher-level summary it produced
-5. OS. Your operating system
-6. Reporting Tool. Which reporting path you used: Power BI or Apache Spark
-7. Custom Reporting. What **custom operation** or **query** you added beyond the example
 
 ### Findings
 
 Describe what your OLAP analysis revealed.
 
-Include:
+- Dice:
+The dice analysis showed that sales performance changes by the combination of Location and
+Category. The strongest combination was Uptown / Food, showing that location influences
+category performance.
 
-1. Slice. What your **slice** showed about that dimension
-2. Dice. What your **dice** revealed about the combination of dimensions
-3. Drilldown. What the **drilldown** exposed that the summary view missed
-4. Rollup. What the **rollup** revealed at a higher summary level
-5. Results. Any surprising or counterintuitive results
+- Drilldown:
+The drilldown exposed monthly sales patterns that were hidden in yearly summaries. It revealed that March 2026 was the strongest sales month, providing more detail about when revenue increased.
+- Roll-Up:
+The roll-up showed overall sales performance at higher levels by summarizing data from Month - Quarter - Year - All Years. It revealed total restaurant sales of $585,191.25.
+- Results:
+A surprising result was that the highest-performing category depended on location. The analysis showed that strong sales were not determined only by location or product category alone, but by how the two dimensions worked together.
 
 ### Summary
+This project enhanced an OLAP workflow by building a restaurant reporting system with
+DuckDB and Python. It analyzed sales by location, category, and time, generated reports and
+visualizations, and highlighted key sales trends. The project demonstrated how OLAP reporting
+helps turn detailed data into meaningful insights for better business decisions.
 
-Summarize your custom reporting work.
+----powershell
+2026-08-03 08:15:52 | INFO | BI | === RUN START ===
+2026-08-03 08:15:52 | INFO | BI | project=BI
+2026-08-03 08:15:52 | INFO | BI | repo_dir=bintel-05-reporting
+2026-08-03 08:15:52 | INFO | BI | python=3.14.6
+2026-08-03 08:15:52 | INFO | BI | os=Windows 10
+2026-08-03 08:15:52 | INFO | BI | shell=powershell
+2026-08-03 08:15:52 | INFO | BI | cwd=.
+2026-08-03 08:15:52 | INFO | BI | github_actions=False
+2026-08-03 08:15:52 | INFO | BI | ========================
+2026-08-03 08:15:52 | INFO | BI | START main()
+2026-08-03 08:15:52 | INFO | BI | ========================
+2026-08-03 08:15:52 | INFO | BI | Data warehouse: = artifacts\smart_sales.duckdb
+2026-08-03 08:15:52 | INFO | BI | Reporting data: = data\reporting\restaurant_reporting.csv
+2026-08-03 08:15:52 | INFO | BI | Connecting to DuckDB data warehouse........
+2026-08-03 08:15:52 | INFO | BI | CALL a function to verify the warehouse........
+2026-08-03 08:15:52 | INFO | BI | Verifying required warehouse tables
+2026-08-03 08:15:52 | INFO | BI |   PASS: All required warehouse tables are available
+2026-08-03 08:15:52 | INFO | BI | CALL a function to create restaurant tables........
+2026-08-03 08:15:52 | INFO | BI | Creating restaurant tables
+2026-08-03 08:15:52 | INFO | BI | Restaurant tables ready
+2026-08-03 08:15:52 | INFO | BI | CALL a function to load restaurant data........
+2026-08-03 08:15:52 | INFO | BI | Loading restaurant sample data
+2026-08-03 08:15:53 | INFO | BI | Restaurant data loaded
+2026-08-03 08:15:53 | INFO | BI | CALL a function to create the restaurant reporting view........
+2026-08-03 08:15:53 | INFO | BI | Creating restaurant_reporting view
+2026-08-03 08:15:53 | INFO | BI | restaurant_reporting view created
+2026-08-03 08:15:53 | INFO | BI | CALL a function to export restaurant reporting data........
+2026-08-03 08:15:53 | INFO | BI | Exporting restaurant reporting dataset
+2026-08-03 08:15:53 | INFO | BI |   Exported 53240 restaurant reporting rows
+2026-08-03 08:15:53 | INFO | BI | Restaurant reporting data: = data\reporting\restaurant_reporting.csv
+2026-08-03 08:15:53 | INFO | BI | CALL a function to slice restaurant sales by region........
+2026-08-03 08:15:53 | INFO | BI | OLAP slice: restaurant sales for Location = 'Downtown'
+2026-08-03 08:15:53 | INFO | BI |   Categories in slice: 2
+2026-08-03 08:15:53 | INFO | BI | CALL a function to plot the slice result........
+2026-08-03 08:15:53 | INFO | BI | Creating chart: Sales by Category in Downtown
+2026-08-03 08:15:56 | INFO | BI | CALL a function to dice restaurant sales by dimensions........
+2026-08-03 08:15:56 | INFO | BI | OLAP dice: Locations=('Downtown', 'Uptown'); Categories=('Food', 'Beverage')
+2026-08-03 08:15:56 | INFO | BI |  Location- category combinations: 3
+2026-08-03 08:15:56 | INFO | BI | CALL a function to plot the dice result........
+2026-08-03 08:15:56 | INFO | BI | Creating chart: Restaurant Sales for Selected Locations and Categories
+2026-08-03 08:15:56 | INFO | BI | CALL a function to roll up restaurant sales by time........
+2026-08-03 08:15:56 | INFO | BI | OLAP roll-up: Month -> Quarter -> Year -> All Years
+2026-08-03 08:15:56 | INFO | BI |   Roll-up rows returned: 6
+2026-08-03 08:15:56 | INFO | BI | CALL a function to plot quarterly roll-up results........
+2026-08-03 08:15:56 | INFO | BI | Creating chart: Quarterly Restaurant Sales Roll-Up
+2026-08-03 08:15:56 | INFO | BI | CALL a function to drill down restaurant sales by time........
+2026-08-03 08:15:56 | INFO | BI | OLAP drill-down: Year 2026 -> Quarter -> Month
+2026-08-03 08:15:56 | INFO | BI |   Drill-down rows returned: 5
+2026-08-03 08:15:56 | INFO | BI | CALL a function to plot monthly drill-down results........
+2026-08-03 08:15:56 | INFO | BI | Creating chart: Monthly Restaurant Sales Drill-Down for 2026
+2026-08-03 08:15:56 | INFO | BI | CALL a function to summarize restaurant OLAP findings........
+2026-08-03 08:15:56 | INFO | BI | ========================
+2026-08-03 08:15:56 | INFO | BI | RESTAURANT SUMMARY
+2026-08-03 08:15:56 | INFO | BI | ========================
+2026-08-03 08:15:56 | INFO | BI | Slice: In Downtown, top category is Food ($276,635.04)
+2026-08-03 08:15:56 | INFO | BI | Dice: Strongest combination is Uptown / Food ($1,149,025.68)
+2026-08-03 08:15:56 | INFO | BI | Roll-up: Total restaurant sales are $1,846,256.72
+2026-08-03 08:15:56 | INFO | BI | Drill-down: Strongest month in 2026 is 2026-03 ($829,905.12)
+2026-08-03 08:15:56 | INFO | BI | ========================
+2026-08-03 08:15:56 | INFO | BI | RESTAURANT ANALYST NOTES:
+2026-08-03 08:15:56 | INFO | BI | Slice identifies performance in one selected region.
+2026-08-03 08:15:56 | INFO | BI | Dice compares multiple restaurant dimensions.
+2026-08-03 08:15:56 | INFO | BI | Roll-up summarizes sales across time levels.
+2026-08-03 08:15:56 | INFO | BI | Drill-down reveals details behind summary results.
+2026-08-03 08:15:56 | INFO | BI | ========================
 
-Include specifics showcasing your analysis:
 
-- What you implemented beyond the example
-- What business insights your queries produced
-- What you learned about OLAP reporting
-- What kinds of real business decisions this analysis could support
-
-Display charts, visuals, screenshots showcasing your OLAP results.
