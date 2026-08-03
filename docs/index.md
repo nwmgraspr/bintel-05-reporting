@@ -102,8 +102,8 @@ DuckDB and Python. It analyzed sales by location, category, and time, generated 
 visualizations, and highlighted key sales trends. The project demonstrated how OLAP reporting
 helps turn detailed data into meaningful insights for better business decisions.
 ...powershell
-![RExcuted_output](docs/images/Figure_output.png)
-![RExcuted_output](docs/images/Chart_1.png)
-![RExcuted_output](docs/images/Chart_2.png)
-![RExcuted_output](docs/images/Chart_3.png)
-![RExcuted_output](docs/images/Chart_4.png)
+![RExcuted_output](images/Figure_output.png)
+![RExcuted_output](images/Chart_1.png)
+![RExcuted_output](images/Chart_2.png)
+![RExcuted_output](images/Chart_3.png)
+![RExcuted_output](images/Chart_4.png)
