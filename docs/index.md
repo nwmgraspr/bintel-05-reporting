@@ -101,72 +101,9 @@ This project enhanced an OLAP workflow by building a restaurant reporting system
 DuckDB and Python. It analyzed sales by location, category, and time, generated reports and
 visualizations, and highlighted key sales trends. The project demonstrated how OLAP reporting
 helps turn detailed data into meaningful insights for better business decisions.
-
-----powershell
-2026-08-03 08:15:52 | INFO | BI | === RUN START ===
-2026-08-03 08:15:52 | INFO | BI | project=BI
-2026-08-03 08:15:52 | INFO | BI | repo_dir=bintel-05-reporting
-2026-08-03 08:15:52 | INFO | BI | python=3.14.6
-2026-08-03 08:15:52 | INFO | BI | os=Windows 10
-2026-08-03 08:15:52 | INFO | BI | shell=powershell
-2026-08-03 08:15:52 | INFO | BI | cwd=.
-2026-08-03 08:15:52 | INFO | BI | github_actions=False
-2026-08-03 08:15:52 | INFO | BI | ========================
-2026-08-03 08:15:52 | INFO | BI | START main()
-2026-08-03 08:15:52 | INFO | BI | ========================
-2026-08-03 08:15:52 | INFO | BI | Data warehouse: = artifacts\smart_sales.duckdb
-2026-08-03 08:15:52 | INFO | BI | Reporting data: = data\reporting\restaurant_reporting.csv
-2026-08-03 08:15:52 | INFO | BI | Connecting to DuckDB data warehouse........
-2026-08-03 08:15:52 | INFO | BI | CALL a function to verify the warehouse........
-2026-08-03 08:15:52 | INFO | BI | Verifying required warehouse tables
-2026-08-03 08:15:52 | INFO | BI |   PASS: All required warehouse tables are available
-2026-08-03 08:15:52 | INFO | BI | CALL a function to create restaurant tables........
-2026-08-03 08:15:52 | INFO | BI | Creating restaurant tables
-2026-08-03 08:15:52 | INFO | BI | Restaurant tables ready
-2026-08-03 08:15:52 | INFO | BI | CALL a function to load restaurant data........
-2026-08-03 08:15:52 | INFO | BI | Loading restaurant sample data
-2026-08-03 08:15:53 | INFO | BI | Restaurant data loaded
-2026-08-03 08:15:53 | INFO | BI | CALL a function to create the restaurant reporting view........
-2026-08-03 08:15:53 | INFO | BI | Creating restaurant_reporting view
-2026-08-03 08:15:53 | INFO | BI | restaurant_reporting view created
-2026-08-03 08:15:53 | INFO | BI | CALL a function to export restaurant reporting data........
-2026-08-03 08:15:53 | INFO | BI | Exporting restaurant reporting dataset
-2026-08-03 08:15:53 | INFO | BI |   Exported 53240 restaurant reporting rows
-2026-08-03 08:15:53 | INFO | BI | Restaurant reporting data: = data\reporting\restaurant_reporting.csv
-2026-08-03 08:15:53 | INFO | BI | CALL a function to slice restaurant sales by region........
-2026-08-03 08:15:53 | INFO | BI | OLAP slice: restaurant sales for Location = 'Downtown'
-2026-08-03 08:15:53 | INFO | BI |   Categories in slice: 2
-2026-08-03 08:15:53 | INFO | BI | CALL a function to plot the slice result........
-2026-08-03 08:15:53 | INFO | BI | Creating chart: Sales by Category in Downtown
-2026-08-03 08:15:56 | INFO | BI | CALL a function to dice restaurant sales by dimensions........
-2026-08-03 08:15:56 | INFO | BI | OLAP dice: Locations=('Downtown', 'Uptown'); Categories=('Food', 'Beverage')
-2026-08-03 08:15:56 | INFO | BI |  Location- category combinations: 3
-2026-08-03 08:15:56 | INFO | BI | CALL a function to plot the dice result........
-2026-08-03 08:15:56 | INFO | BI | Creating chart: Restaurant Sales for Selected Locations and Categories
-2026-08-03 08:15:56 | INFO | BI | CALL a function to roll up restaurant sales by time........
-2026-08-03 08:15:56 | INFO | BI | OLAP roll-up: Month -> Quarter -> Year -> All Years
-2026-08-03 08:15:56 | INFO | BI |   Roll-up rows returned: 6
-2026-08-03 08:15:56 | INFO | BI | CALL a function to plot quarterly roll-up results........
-2026-08-03 08:15:56 | INFO | BI | Creating chart: Quarterly Restaurant Sales Roll-Up
-2026-08-03 08:15:56 | INFO | BI | CALL a function to drill down restaurant sales by time........
-2026-08-03 08:15:56 | INFO | BI | OLAP drill-down: Year 2026 -> Quarter -> Month
-2026-08-03 08:15:56 | INFO | BI |   Drill-down rows returned: 5
-2026-08-03 08:15:56 | INFO | BI | CALL a function to plot monthly drill-down results........
-2026-08-03 08:15:56 | INFO | BI | Creating chart: Monthly Restaurant Sales Drill-Down for 2026
-2026-08-03 08:15:56 | INFO | BI | CALL a function to summarize restaurant OLAP findings........
-2026-08-03 08:15:56 | INFO | BI | ========================
-2026-08-03 08:15:56 | INFO | BI | RESTAURANT SUMMARY
-2026-08-03 08:15:56 | INFO | BI | ========================
-2026-08-03 08:15:56 | INFO | BI | Slice: In Downtown, top category is Food ($276,635.04)
-2026-08-03 08:15:56 | INFO | BI | Dice: Strongest combination is Uptown / Food ($1,149,025.68)
-2026-08-03 08:15:56 | INFO | BI | Roll-up: Total restaurant sales are $1,846,256.72
-2026-08-03 08:15:56 | INFO | BI | Drill-down: Strongest month in 2026 is 2026-03 ($829,905.12)
-2026-08-03 08:15:56 | INFO | BI | ========================
-2026-08-03 08:15:56 | INFO | BI | RESTAURANT ANALYST NOTES:
-2026-08-03 08:15:56 | INFO | BI | Slice identifies performance in one selected region.
-2026-08-03 08:15:56 | INFO | BI | Dice compares multiple restaurant dimensions.
-2026-08-03 08:15:56 | INFO | BI | Roll-up summarizes sales across time levels.
-2026-08-03 08:15:56 | INFO | BI | Drill-down reveals details behind summary results.
-2026-08-03 08:15:56 | INFO | BI | ========================
-
-
+...powershell
+![RExcuted_output](images/Figure_output.png)
+![RExcuted_output](images/Chart_1.png)
+![RExcuted_output](images/Chart_2.png)
+![RExcuted_output](images/Chart_3.png)
+![RExcuted_output](images/Chart_4.png)
