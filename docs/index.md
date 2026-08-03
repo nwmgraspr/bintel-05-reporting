@@ -31,57 +31,79 @@ to get the example projects running on your machine.
 - Compared with the original project, my version adds store-level analysis and growth measurement, making the reporting more valuable for business decisions.
 
 
-- I would consider this project as moderate. This is an existing project that has most of the heavy lifting done. However, integrating the new functions into the existing project required careful attention especially the function placement, indentations and order of execution.
+- I would consider this project as moderate. This is an existing project that has most of the heavy lifting done. However, integrating the new functions into the existing project required careful attention, especially the function placement, indentations and order of execution.
 
 ## Phase 5. Custom Project
 
-Describe your custom OLAP reporting work.
+This project created a custom restaurant OLAP reporting system using DuckDB and Python. It
+used OLAP techniques such as slice, dice, roll-up, and drill-down to analyze restaurant sales by
+location, menu category, and time. The project also generated reports, charts, and summaries to
+help identify sales trends and support business decision-making.
 
 ### Basis and Data
+The project used a DuckDB data warehouse stored in artifacts/smart_sales.duckdb. The
+warehouse contained restaurant sales data used to create a custom reporting dataset for OLAP
+analysis.
+The main data included:
+- Restaurant Orders: Contains transaction details such as order ID, order date, restaurant ID, and
+sales amount.
+- Restaurant Reporting View: A business-ready dataset combining sales information with location
+and menu category details for analysis.
 
+### The business questions investigated were:
+
+- Which restaurant locations generate the most sales?
+- Which menu categories contribute the most revenue?
+- How do sales patterns change over time?
+- Which locations and categories perform best together?
+These questions matter because businesses need accurate sales insights to improve decision-
+making. Understanding location performance, product demand, and sales trends can support
+better choices in menu planning, inventory control, staffing, and revenue strategies.
 Describe the data warehouse you queried.
-
-Include:
-
-- The warehouse tables and what each contains
-- The business questions you chose to investigate
-- Why those questions matter to a business
 
 ### OLAP Operations
 
 Describe the slice, dice, rollup, and drilldown operations you implemented.
+- Slice:
+Analyzed sales by one Location (Downtown) to identify the best-performing menu categories within a specific restaurant area.
+- Dice:
+Compared Location and Menu Category dimensions to find which location-category combinations generated the most sales.
+- Roll-Up: 
+Summarized sales from Month - Quarter - Year - All Years to provide higher-level revenue trends and totals.
+- Drilldown:
+Expanded analysis from Year - Quarter - Month to reveal detailed sales patterns and identify strong sales periods.
 
+- Operating System: Windows 10
+- Reporting Tool:
+Custom Python reporting using DuckDB, Pandas, and visualization libraries.
+- Custom Reporting:
+Added restaurant-specific queries, reporting exports, charts, and automated summaries to identify sales trends and business insights.
 Include:
-
-1. Slice. What dimension you chose for your **slice** and why
-2. Dice. What two dimensions you chose for your **dice** and why
-3. Drilldown. What level of **drilldown** you implemented and what it revealed
-4. Rollup. What level of **rollup** you implemented and what higher-level summary it produced
-5. OS. Your operating system
-6. Reporting Tool. Which reporting path you used: Power BI or Apache Spark
-7. Custom Reporting. What **custom operation** or **query** you added beyond the example
 
 ### Findings
 
 Describe what your OLAP analysis revealed.
 
-Include:
+- Dice:
+The dice analysis showed that sales performance changes by the combination of Location and
+Category. The strongest combination was Uptown / Food, showing that location influences
+category performance.
 
-1. Slice. What your **slice** showed about that dimension
-2. Dice. What your **dice** revealed about the combination of dimensions
-3. Drilldown. What the **drilldown** exposed that the summary view missed
-4. Rollup. What the **rollup** revealed at a higher summary level
-5. Results. Any surprising or counterintuitive results
+- Drilldown:
+The drilldown exposed monthly sales patterns that were hidden in yearly summaries. It revealed that March 2026 was the strongest sales month, providing more detail about when revenue increased.
+- Roll-Up:
+The roll-up showed overall sales performance at higher levels by summarizing data from Month - Quarter - Year - All Years. It revealed total restaurant sales of $585,191.25.
+- Results:
+A surprising result was that the highest-performing category depended on location. The analysis showed that strong sales were not determined only by location or product category alone, but by how the two dimensions worked together.
 
 ### Summary
-
-Summarize your custom reporting work.
-
-Include specifics showcasing your analysis:
-
-- What you implemented beyond the example
-- What business insights your queries produced
-- What you learned about OLAP reporting
-- What kinds of real business decisions this analysis could support
-
-Display charts, visuals, screenshots showcasing your OLAP results.
+This project enhanced an OLAP workflow by building a restaurant reporting system with
+DuckDB and Python. It analyzed sales by location, category, and time, generated reports and
+visualizations, and highlighted key sales trends. The project demonstrated how OLAP reporting
+helps turn detailed data into meaningful insights for better business decisions.
+...powershell
+![RExcuted_output](docs/images/Figure_output.png)
+![RExcuted_output](docs/images/Chart_1.png)
+![RExcuted_output](docs/images/Chart_2.png)
+![RExcuted_output](docs/images/Chart_3.png)
+![RExcuted_output](docs/images/Chart_4.png)
