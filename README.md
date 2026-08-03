@@ -221,11 +221,22 @@ NOTE: These are old visuals.
 Run the example to generate the correct ones.
 Save your images to docs/images/ and update the links below.
 
-![RExcuted_output](./docs/images/Figure_output.png)
-![RExcuted_output](./docs/images/Chart_1.png)
-![RExcuted_output](./docs/images/Chart_2.png)
-![RExcuted_output](./docs/images/Chart_3.png)
-![RExcuted_output](./docs/images/Chart_4.png)
+!## OLAP Results
+
+### Program Output
+![Executed Output](docs/images/Figure_output.png)
+
+### Slice Analysis
+![Slice Chart](docs/images/Chart_1.png)
+
+### Dice Analysis
+![Roll-Up Analysis - Quarterly Restaurant Sales](docs/images/Chart_2.png)
+
+### Roll-Up Analysis
+![Dice Analysis - Sales by Location and Category](docs/images/Chart_3.png)
+
+### Drill-Down Analysis
+![Slice Analysis - Sales by Category in Downtown](docs/images/Chart_4.png)
 
 
 ![DuckDB OLAP Reporting Results](./docs/images/Figure_1.png)
